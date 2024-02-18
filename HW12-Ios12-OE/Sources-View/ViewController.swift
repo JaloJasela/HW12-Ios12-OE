@@ -14,11 +14,22 @@ class ViewController: UIViewController {
         private enum Color {
             static let backgroundColor: UIColor = .systemGray4
             static let backgroundColorCircleView: UIColor = .systemGray5
+            static let workingTimeColor: UIColor = .systemOrange
+            static let restTimeColor: UIColor = .systemGreen
+    }
+    
+    private enum TimeDuration {
+        static let workingTime: Int = 60
+        static let restTime: Int = 30
     }
     
     // MARK: - UI
         
-        var timer = Timer()
+    var timer = Timer()
+    var durationTime = TimeDuration.workingTime
+    
+    var isTimerRunning = false
+    var isWorkingTime = true
     
     private lazy var background: UIImageView = {
         let image = UIImage(named: "tomato")
@@ -37,7 +48,52 @@ class ViewController: UIViewController {
         return circle
     }()
     
+    private lazy var timeLabel: UILabel = {
+       let lable = UILabel()
+        lable.font = .systemFont(ofSize: 70, weight: .light)
+        lable.textColor = Color.workingTimeColor
+        lable.text = "\(formatTime())"
+        lable.textAlignment = .center
+        lable.translatesAutoresizingMaskIntoConstraints = false
+        return lable
+    }()
+    
+    private lazy var playStopButton: UIButton = {
+        var button = UIButton()
+        button.setBackgroundImage(UIImage(systemName: "play"), for: .normal)
+        button.tintColor = Color.workingTimeColor
+       
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    lazy var animationCircle: UIBezierPath = {
+        var animationCircle = UIBezierPath()
+        let centr = CGPoint(x: circleView.frame.width / 2, y: circleView.frame.height / 2)
+        let endAngle = (-CGFloat.pi / 2)
+        let startAngle = 2 * CGFloat.pi + endAngle
+        animationCircle = UIBezierPath(arcCenter: centr, radius: 150, startAngle: startAngle, endAngle: endAngle, clockwise: false)
+        return animationCircle
+    }()
+    
+  
+    
     // MARK: - Actions
+    
+    private func formatTime() -> String {
+        let minutes = Int(durationTime) / 60 % 60
+        let seconds = Int(durationTime) % 60
+        return String(format: "%0:%0", minutes, seconds)
+    }
+    
+    private func animation() {
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.toValue = 0
+        animation.duration = CFTimeInterval(durationTime)
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        animation.isRemovedOnCompletion = true
+        
+    }
     
     // MARK: - Lifecycle
     

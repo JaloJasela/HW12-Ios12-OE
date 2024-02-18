@@ -58,7 +58,7 @@
 			children = (
 				88CC89A62B82887B00358079 /* UIView&Extensions */,
 				88CC89A52B8287ED00358079 /* App+Scene */,
-				88CC89A42B8287D900358079 /* View */,
+				88CC89A42B8287D900358079 /* Sources-View */,
 				88CC89A32B82871500358079 /* Resources&Coniguratoin */,
 			);
 			path = "HW12-Ios12-OE";
@@ -74,12 +74,12 @@
 			path = "Resources&Coniguratoin";
 			sourceTree = "<group>";
 		};
-		88CC89A42B8287D900358079 /* View */ = {
+		88CC89A42B8287D900358079 /* Sources-View */ = {
 			isa = PBXGroup;
 			children = (
 				889967812B826A2B00CE1457 /* ViewController.swift */,
 			);
-			path = View;
+			path = "Sources-View";
 			sourceTree = "<group>";
 		};
 		88CC89A52B8287ED00358079 /* App+Scene */ = {
